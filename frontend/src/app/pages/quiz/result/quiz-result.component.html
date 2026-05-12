@@ -1,0 +1,38 @@
+<div class="page">
+  <header class="result-header">
+    <div>
+      <p class="eyebrow">Resultat</p>
+      <h1>Bravo, tu progresses !</h1>
+      <p class="subtitle">Score: 8/10 • 80%</p>
+    </div>
+    <button class="secondary" routerLink="/quiz">Retour aux quiz</button>
+  </header>
+
+  <section class="result-grid">
+    <div class="card">
+      <h2>Resume</h2>
+      <p>Tu as reussi 8 questions sur 10. Continue, tu es sur la bonne voie.</p>
+      <div class="progress">
+        <span style="width: 80%"></span>
+      </div>
+      <div class="badge">Niveau valide</div>
+    </div>
+    <div class="card">
+      <h2>Correction</h2>
+      <ul>
+        <li>Q1: Bonne reponse</li>
+        <li>Q2: A revoir</li>
+        <li>Q3: Bonne reponse</li>
+        <li>Q4: Bonne reponse</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>Prochaine etape</h2>
+      <p>Reprends le cours ou passe au quiz suivant.</p>
+      <div class="actions">
+        <button class="primary" routerLink="/cours/angular-style/lecture">Reprendre le cours</button>
+        <button class="ghost" routerLink="/quiz">Voir les quiz</button>
+      </div>
+    </div>
+  </section>
+</div>

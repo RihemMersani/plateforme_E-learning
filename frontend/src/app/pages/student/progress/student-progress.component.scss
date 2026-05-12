@@ -1,0 +1,52 @@
+:host {
+  display: block;
+}
+
+.panel {
+  background: #ffffff;
+  padding: 18px;
+  border-radius: var(--radius-l);
+  box-shadow: 0 12px 24px rgba(20, 30, 40, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.panel h2 {
+  margin-top: 0;
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
+
+.progress-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.progress-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.progress-item h3 {
+  margin: 0 0 4px;
+}
+
+.progress-item p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.bar {
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(30, 40, 50, 0.1);
+  overflow: hidden;
+}
+
+.bar span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(120deg, var(--mint), var(--sun));
+}

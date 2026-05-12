@@ -1,0 +1,41 @@
+<div class="auth-page">
+  <div class="auth-card">
+    <div class="auth-header">
+      <span class="auth-badge">Connexion</span>
+      <h1>Bon retour !</h1>
+      <p>Connecte-toi pour reprendre tes cours.</p>
+    </div>
+
+    <form class="auth-form" (submit)="onLogin($event)">
+      <label>
+        Email
+        <input type="email" placeholder="toi@email.com" />
+      </label>
+      <label>
+        Mot de passe
+        <input type="password" placeholder="********" />
+      </label>
+      <div class="auth-row">
+        <label class="checkbox">
+          <input type="checkbox" />
+          Se souvenir de moi
+        </label>
+        <a class="link" href="#">Mot de passe oublie ?</a>
+      </div>
+      <button class="primary" type="submit">Se connecter</button>
+    </form>
+
+    <div class="auth-footer">
+      <span>Pas encore de compte ?</span>
+      <a class="link" routerLink="/inscription">Creer un compte</a>
+    </div>
+  </div>
+
+  <div class="auth-side">
+    <div class="side-card">
+      <h2>Progression douce</h2>
+      <p>Garde le rythme avec un tableau de bord clair et motivant.</p>
+      <div class="side-pill">Nouveau parcours chaque semaine</div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,253 @@
+<div class="page">
+  <header class="topbar">
+    <a class="brand" routerLink="/">
+      <span class="brand-dot" aria-hidden="true"></span>
+      <div class="brand-text">
+        <span class="brand-name">Elearning</span>
+        <span class="brand-tag">Apprendre avec douceur</span>
+      </div>
+    </a>
+    <nav class="nav">
+      @if (isStudent()) {
+        <a routerLink="/cours">Cours</a>
+        <a routerLink="/quiz">Quiz</a>
+        <a routerLink="/certificats">Certificats</a>
+      }
+    </nav>
+    <div class="top-actions">
+      <button class="ghost" routerLink="/login">Connexion</button>
+      <button class="primary" routerLink="/inscription">Inscription</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">Plateforme e-learning</span>
+        <h1>Une experience cute, belle et vraiment vivante.</h1>
+        <p>
+          Apprends avec des cours clairs, des quiz ludiques et des outils qui
+          suivent ta progression. Tout est pense pour avancer sans stress.
+        </p>
+        <div class="hero-actions">
+          <button class="primary">Commencer maintenant</button>
+          @if (isStudent()) {
+            <button class="secondary" routerLink="/cours">Voir les cours</button>
+          }
+        </div>
+        <div class="hero-metrics">
+          <div class="metric">
+            <span class="metric-number">120+</span>
+            <span class="metric-label">Cours actifs</span>
+          </div>
+          <div class="metric">
+            <span class="metric-number">36k</span>
+            <span class="metric-label">Etudiants heureux</span>
+          </div>
+          <div class="metric">
+            <span class="metric-number">4.9</span>
+            <span class="metric-label">Note moyenne</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="floating-card card-stats">
+          <div class="card-title">Progression</div>
+          <div class="progress">
+            <span style="width: 72%"></span>
+          </div>
+          <div class="card-foot">72% termine</div>
+        </div>
+        <div class="floating-card card-course">
+          <div class="pill">Nouveau</div>
+          <h3>UX pour debutants</h3>
+          <p>12 chapitres • 5h 20min</p>
+        </div>
+        <div class="floating-card card-quiz">
+          <div class="card-title">Quiz express</div>
+          <div class="quiz-row">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
+          <div class="card-foot">Score moyen 88%</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section categories">
+      <div class="section-head">
+        <h2>Categories populaires</h2>
+        <p>Choisis un univers doux pour apprendre a ton rythme.</p>
+      </div>
+      <div class="card-grid">
+        <article class="category-card" style="--delay: 0s">
+          <span class="chip">Design</span>
+          <h3>UI mignon & moderne</h3>
+          <p>Couleurs, layout, micro-details et style.</p>
+        </article>
+        <article class="category-card" style="--delay: 0.05s">
+          <span class="chip">Dev</span>
+          <h3>Front-end joyeux</h3>
+          <p>Angular, composants, et animations fluides.</p>
+        </article>
+        <article class="category-card" style="--delay: 0.1s">
+          <span class="chip">Business</span>
+          <h3>Marketing doux</h3>
+          <p>Creer des offres claires et humaines.</p>
+        </article>
+        <article class="category-card" style="--delay: 0.15s">
+          <span class="chip">Soft skills</span>
+          <h3>Communication lumineuse</h3>
+          <p>Ameliorer l'expression et la confiance.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section courses">
+      <div class="section-head">
+        <h2>Cours populaires</h2>
+        <p>Des parcours courts et efficaces pour rester motive.</p>
+      </div>
+      <div class="course-grid">
+        <article class="course-card" style="--delay: 0s">
+          <div class="course-cover cover-1"></div>
+          <div class="course-body">
+            <div class="course-meta">Debutant • 4h</div>
+            <h3>Palette douce et design</h3>
+            <p>Apprends a creer des ecrans harmonieux.</p>
+            @if (isStudent()) {
+              <button class="secondary" routerLink="/cours/ux-doux">Voir le cours</button>
+            }
+          </div>
+        </article>
+        <article class="course-card" style="--delay: 0.08s">
+          <div class="course-cover cover-2"></div>
+          <div class="course-body">
+            <div class="course-meta">Intermediaire • 6h</div>
+            <h3>Angular avec style</h3>
+            <p>Composants, routing, et UI expressifs.</p>
+            @if (isStudent()) {
+              <button class="secondary" routerLink="/cours/angular-style">Voir le cours</button>
+            }
+          </div>
+        </article>
+        <article class="course-card" style="--delay: 0.16s">
+          <div class="course-cover cover-3"></div>
+          <div class="course-body">
+            <div class="course-meta">Avance • 5h</div>
+            <h3>Animation et motion</h3>
+            <p>Rendre les pages vivantes et elegantes.</p>
+            @if (isStudent()) {
+              <button class="secondary" routerLink="/cours/motion">Voir le cours</button>
+            }
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section stats">
+      <div class="stat-strip">
+        <div class="stat">
+          <span class="stat-number">250+</span>
+          <span class="stat-label">Chapitres video</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">58</span>
+          <span class="stat-label">Admins actifs</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">96%</span>
+          <span class="stat-label">Taux de satisfaction</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">1200</span>
+          <span class="stat-label">Certificats emis</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section testimonials">
+      <div class="section-head">
+        <h2>Ils aiment apprendre ici</h2>
+        <p>Des retours simples et sinceres d'etudiants.</p>
+      </div>
+      <div class="testimonial-grid">
+        <figure class="testimonial" style="--delay: 0s">
+          <blockquote>
+            "Tout est clair, les cours sont courts et agreables a suivre."
+          </blockquote>
+          <figcaption>
+            <span class="avatar">S</span>
+            Sarah, etudiante
+          </figcaption>
+        </figure>
+        <figure class="testimonial" style="--delay: 0.08s">
+          <blockquote>
+            "Le suivi de progression me motive chaque semaine."
+          </blockquote>
+          <figcaption>
+            <span class="avatar">M</span>
+            Mehdi, etudiant
+          </figcaption>
+        </figure>
+        <figure class="testimonial" style="--delay: 0.16s">
+          <blockquote>
+            "Une plateforme douce mais ultra efficace pour apprendre."
+          </blockquote>
+          <figcaption>
+            <span class="avatar">L</span>
+            Lina, designer
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div>
+        <h2>Commence aujourd'hui</h2>
+        <p>Inscris-toi et decouvre ton prochain parcours prefere.</p>
+      </div>
+      <button class="primary">Creer un compte</button>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="brand">
+          <span class="brand-dot" aria-hidden="true"></span>
+          <span class="brand-name">Elearning</span>
+        </div>
+        <p>Une plateforme lumineuse pour apprendre avec plaisir.</p>
+      </div>
+      <div class="footer-links">
+        <div>
+          <h4>Plateforme</h4>
+          @if (isStudent()) {
+            <a routerLink="/cours">Cours</a>
+            <a routerLink="/quiz">Quiz</a>
+          }
+        </div>
+        <div>
+          <h4>Support</h4>
+          <a href="#">FAQ</a>
+          <a href="#">Contact</a>
+          <a href="#">Aide</a>
+        </div>
+        <div>
+          <h4>Compte</h4>
+          <a routerLink="/login">Connexion</a>
+          <a routerLink="/inscription">Inscription</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>(c) 2026 Elearning. Tous droits reserves.</span>
+      <span>Fait avec soin et douceur.</span>
+    </div>
+  </footer>
+</div>

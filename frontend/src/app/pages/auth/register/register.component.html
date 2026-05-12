@@ -1,0 +1,51 @@
+<div class="auth-page">
+  <div class="auth-card">
+    <div class="auth-header">
+      <span class="auth-badge">Inscription</span>
+      <h1>Bienvenue !</h1>
+      <p>Cree ton compte pour commencer ton parcours.</p>
+    </div>
+
+    <form class="auth-form" (submit)="onRegister($event, roleSelect.value)">
+      <div class="split">
+        <label>
+          Nom
+          <input type="text" placeholder="Nom" />
+        </label>
+        <label>
+          Prenom
+          <input type="text" placeholder="Prenom" />
+        </label>
+      </div>
+      <label>
+        Email
+        <input type="email" placeholder="toi@email.com" />
+      </label>
+      <label>
+        Mot de passe
+        <input type="password" placeholder="********" />
+      </label>
+      <label>
+        Role
+        <select #roleSelect>
+          <option>Etudiant</option>
+          <option>Admin</option>
+        </select>
+      </label>
+      <button class="primary" type="submit">Creer un compte</button>
+    </form>
+
+    <div class="auth-footer">
+      <span>Deja un compte ?</span>
+      <a class="link" routerLink="/login">Se connecter</a>
+    </div>
+  </div>
+
+  <div class="auth-side">
+    <div class="side-card">
+      <h2>Un espace clair</h2>
+      <p>Accede a tes cours, quiz et certificats en un clin d'oeil.</p>
+      <div class="side-pill">Progression visuelle et douce</div>
+    </div>
+  </div>
+</div>

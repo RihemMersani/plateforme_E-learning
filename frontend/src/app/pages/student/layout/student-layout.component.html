@@ -1,0 +1,41 @@
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="brand-dot" aria-hidden="true"></span>
+      <div>
+        <span class="brand-name">Elearning</span>
+        <span class="brand-tag">Espace etudiant</span>
+      </div>
+    </div>
+
+    <nav class="menu">
+      <a routerLink="/etudiant" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
+      <a routerLink="/etudiant/mes-cours" routerLinkActive="active">Mes cours</a>
+      <a routerLink="/etudiant/progres" routerLinkActive="active">Mes progres</a>
+      <a routerLink="/etudiant/quiz" routerLinkActive="active">Mes quiz</a>
+      <a routerLink="/etudiant/certificats" routerLinkActive="active">Mes certificats</a>
+      <a routerLink="/etudiant/profil" routerLinkActive="active">Profil</a>
+    </nav>
+
+    <div class="sidebar-foot">
+      <button class="ghost" (click)="logout()">Deconnexion</button>
+    </div>
+  </aside>
+
+  <main class="content">
+    <header class="topbar">
+      <div>
+        <h1>Bonjour, Sarah</h1>
+        <p>Voici ton resume du jour.</p>
+      </div>
+      <div class="top-actions">
+        <button class="secondary" routerLink="/cours">Explorer les cours</button>
+        <button class="primary">Nouvelle session</button>
+      </div>
+    </header>
+
+    <section class="page-body">
+      <router-outlet></router-outlet>
+    </section>
+  </main>
+</div>

@@ -1,0 +1,66 @@
+:host {
+  display: block;
+}
+
+.panel {
+  background: #ffffff;
+  padding: 18px;
+  border-radius: var(--radius-l);
+  box-shadow: 0 12px 24px rgba(20, 30, 40, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.panel h2 {
+  margin-top: 0;
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
+
+.profile-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--mint);
+  color: #1c2b2b;
+  font-weight: 700;
+}
+
+.profile-form {
+  display: grid;
+  gap: 14px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 600;
+}
+
+input {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(36, 48, 58, 0.12);
+  background: #fffaf6;
+}
+
+.primary {
+  border: none;
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-weight: 600;
+  cursor: pointer;
+  background: linear-gradient(120deg, var(--peach), var(--sun));
+  color: #3a241b;
+  box-shadow: var(--shadow-pop);
+  width: fit-content;
+}

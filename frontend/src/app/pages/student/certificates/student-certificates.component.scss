@@ -1,0 +1,42 @@
+:host {
+  display: block;
+}
+
+.panel {
+  background: #ffffff;
+  padding: 18px;
+  border-radius: var(--radius-l);
+  box-shadow: 0 12px 24px rgba(20, 30, 40, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.panel h2 {
+  margin-top: 0;
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
+
+.certificate-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.certificate-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.secondary {
+  border: none;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #ffffff;
+  border: 1px solid rgba(62, 72, 80, 0.15);
+  color: var(--ink);
+}

@@ -1,0 +1,160 @@
+:host {
+  display: block;
+}
+
+.auth-page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 24px;
+  align-items: center;
+  padding: 40px 24px;
+}
+
+.auth-card {
+  max-width: 500px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.92);
+  padding: 32px;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.auth-header h1 {
+  margin: 10px 0 6px;
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
+
+.auth-header p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.auth-badge {
+  display: inline-flex;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(188, 216, 255, 0.6);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 600;
+}
+
+input,
+select {
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(36, 48, 58, 0.12);
+  font-size: 0.95rem;
+  background: #fffaf6;
+}
+
+input:focus,
+select:focus {
+  outline: 2px solid rgba(188, 216, 255, 0.8);
+  border-color: transparent;
+}
+
+.split {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.primary {
+  border: none;
+  padding: 12px 18px;
+  border-radius: 999px;
+  font-weight: 600;
+  cursor: pointer;
+  background: linear-gradient(120deg, var(--mint), var(--sky));
+  color: #1c2b2b;
+  box-shadow: var(--shadow-pop);
+}
+
+.link {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.auth-footer {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.auth-side {
+  display: flex;
+  justify-content: center;
+}
+
+.side-card {
+  max-width: 360px;
+  padding: 24px;
+  border-radius: var(--radius-xl);
+  background: rgba(255, 255, 255, 0.75);
+  box-shadow: var(--shadow-soft);
+}
+
+.side-card h2 {
+  margin-top: 0;
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
+
+.side-card p {
+  color: var(--muted);
+}
+
+.side-pill {
+  margin-top: 16px;
+  display: inline-flex;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(255, 226, 168, 0.6);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #3a241b;
+}
+
+@media (max-width: 900px) {
+  .auth-page {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-side {
+    order: -1;
+  }
+}
+
+@media (max-width: 640px) {
+  .auth-page {
+    padding: 24px 16px;
+  }
+
+  .split {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-footer {
+    flex-direction: column;
+  }
+}
