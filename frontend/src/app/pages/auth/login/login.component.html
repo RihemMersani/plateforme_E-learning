@@ -6,14 +6,14 @@
       <p>Connecte-toi pour reprendre tes cours.</p>
     </div>
 
-    <form class="auth-form" (submit)="onLogin($event)">
+    <form class="auth-form" [formGroup]="loginForm" (ngSubmit)="onLogin()">
       <label>
         Email
-        <input type="email" placeholder="toi@email.com" />
+        <input type="email" placeholder="toi@email.com" formControlName="email" />
       </label>
       <label>
         Mot de passe
-        <input type="password" placeholder="********" />
+        <input type="password" placeholder="********" formControlName="password" />
       </label>
       <div class="auth-row">
         <label class="checkbox">
@@ -22,7 +22,7 @@
         </label>
         <a class="link" href="#">Mot de passe oublie ?</a>
       </div>
-      <button class="primary" type="submit">Se connecter</button>
+      <button class="primary" type="submit" [disabled]="loginForm.invalid">Se connecter</button>
     </form>
 
     <div class="auth-footer">

@@ -1,54 +1,45 @@
-<div class="page">
+<div class="page" *ngIf="course">
   <a class="back" routerLink="/cours">Retour aux cours</a>
 
   <section class="hero">
     <div class="hero-copy">
       <p class="eyebrow">Cours detail</p>
-      <h1>Angular avec style</h1>
-      <p class="subtitle">Une immersion douce pour construire des interfaces vivantes.</p>
+      <h1>{{ course.title }}</h1>
+      <p class="subtitle">{{ course.description }}</p>
       <div class="meta">
-        <span>Intermediaire</span>
-        <span>6h 20min</span>
-        <span>18 chapitres</span>
-        <span>Par Lina B.</span>
+        <span>{{ course.level }}</span>
+        <span>{{ course.duration_minutes }} min</span>
+        <span>{{ course.lessons_count }} lecons</span>
+        <span>Par {{ course.teacher_name || 'Equipe Elearning' }}</span>
       </div>
       <div class="actions">
-        <button class="primary" routerLink="/cours/angular-style/lecture">Commencer</button>
-        <button class="secondary" routerLink="/cours/angular-style/progression">Voir progression</button>
+        <button class="primary" (click)="enroll()">Commencer</button>
+        <button class="secondary" [routerLink]="['/cours', course.slug, 'progression']">Voir progression</button>
       </div>
+      <p class="subtitle" *ngIf="message">{{ message }}</p>
     </div>
-    <div class="hero-cover" aria-hidden="true"></div>
+    <div class="hero-cover" [style.background-image]="'url(' + course.image + ')'" aria-hidden="true"></div>
   </section>
 
   <section class="grid">
     <div class="card">
       <h2>A propos</h2>
-      <p>
-        Ce cours te guide pas a pas pour creer des composants clairs, elegants,
-        et faciles a maintenir.
-      </p>
-      <ul>
-        <li>Layouts avec SCSS organise</li>
-        <li>Animations subtiles</li>
-        <li>Pratiques modernes Angular</li>
-      </ul>
+      <p>{{ course.description }}</p>
     </div>
     <div class="card">
       <h2>Chapitres</h2>
       <ol class="chapter-list">
-        <li>Intro et setup</li>
-        <li>Structure des composants</li>
-        <li>Couleurs et typographies</li>
-        <li>Animations et micro-interactions</li>
-        <li>Bonus: design system</li>
+        <li *ngFor="let chapter of course.chapters">
+          {{ chapter.title }} - {{ chapter.lessons.length }} lecons
+        </li>
       </ol>
     </div>
     <div class="card">
       <h2>Inclus</h2>
       <div class="pill-grid">
-        <span>Videos HD</span>
+        <span>Videos</span>
         <span>Quiz pratiques</span>
-        <span>PDF recap</span>
+        <span>Progression</span>
         <span>Certificat</span>
       </div>
     </div>

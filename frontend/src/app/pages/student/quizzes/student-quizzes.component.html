@@ -1,19 +1,13 @@
 <section class="panel">
   <h2>Mes quiz</h2>
   <div class="quiz-list">
-    <div class="quiz-item">
+    <div class="quiz-item" *ngFor="let quiz of quizzes">
       <div>
-        <h3>Quiz • Angular fondations</h3>
-        <p>Score: 80%</p>
+        <h3>{{ quiz.title }}</h3>
+        <p>Score: {{ quiz.score }}% - {{ quiz.passed ? 'valide' : 'a revoir' }}</p>
       </div>
-      <button class="ghost" routerLink="/quiz/angular-style-1/resultat">Voir resultat</button>
-    </div>
-    <div class="quiz-item">
-      <div>
-        <h3>Quiz • CSS layout</h3>
-        <p>Score: 70%</p>
-      </div>
-      <button class="ghost" routerLink="/quiz/css-6/resultat">Voir resultat</button>
+      <button class="ghost" [routerLink]="['/quiz', quiz.slug, 'resultat']">Voir resultat</button>
     </div>
   </div>
+  <p *ngIf="quizzes.length === 0">Aucun quiz soumis pour le moment.</p>
 </section>

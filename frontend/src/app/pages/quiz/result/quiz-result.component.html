@@ -2,35 +2,31 @@
   <header class="result-header">
     <div>
       <p class="eyebrow">Resultat</p>
-      <h1>Bravo, tu progresses !</h1>
-      <p class="subtitle">Score: 8/10 • 80%</p>
+      <h1>{{ result?.passed ? 'Bravo, quiz valide !' : 'Resultat du quiz' }}</h1>
+      <p class="subtitle" *ngIf="result">Score: {{ result.score }}% - requis {{ result.passing_score }}%</p>
+      <p class="subtitle" *ngIf="message">{{ message }}</p>
     </div>
     <button class="secondary" routerLink="/quiz">Retour aux quiz</button>
   </header>
 
-  <section class="result-grid">
+  <section class="result-grid" *ngIf="result">
     <div class="card">
       <h2>Resume</h2>
-      <p>Tu as reussi 8 questions sur 10. Continue, tu es sur la bonne voie.</p>
+      <p>{{ result.passed ? 'Tu as valide ce quiz.' : 'Tu peux reviser puis reessayer.' }}</p>
       <div class="progress">
-        <span style="width: 80%"></span>
+        <span [style.width.%]="result.score"></span>
       </div>
-      <div class="badge">Niveau valide</div>
+      <div class="badge">{{ result.passed ? 'Niveau valide' : 'A revoir' }}</div>
     </div>
     <div class="card">
-      <h2>Correction</h2>
-      <ul>
-        <li>Q1: Bonne reponse</li>
-        <li>Q2: A revoir</li>
-        <li>Q3: Bonne reponse</li>
-        <li>Q4: Bonne reponse</li>
-      </ul>
+      <h2>Cours</h2>
+      <p>{{ result.course_title }}</p>
+      <p>Soumis le {{ result.submitted_at | date:'medium' }}</p>
     </div>
     <div class="card">
       <h2>Prochaine etape</h2>
-      <p>Reprends le cours ou passe au quiz suivant.</p>
+      <p>Reprends le cours ou passe a un autre quiz.</p>
       <div class="actions">
-        <button class="primary" routerLink="/cours/angular-style/lecture">Reprendre le cours</button>
         <button class="ghost" routerLink="/quiz">Voir les quiz</button>
       </div>
     </div>

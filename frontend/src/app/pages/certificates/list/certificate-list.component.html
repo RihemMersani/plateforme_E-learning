@@ -4,44 +4,33 @@
       <p class="eyebrow">Certificats</p>
       <h1>Celebrer tes progres</h1>
       <p class="subtitle">Disponible quand la progression atteint 100% et le quiz est valide.</p>
+      <p class="subtitle" *ngIf="message">{{ message }}</p>
     </div>
     <button class="secondary" routerLink="/cours">Voir les cours</button>
   </header>
 
   <section class="certificate-grid">
-    <article class="certificate-card" style="--delay: 0s">
+    <article class="certificate-card" *ngFor="let certificate of earned; let index = index" [style.--delay.s]="index * 0.08">
       <div class="certificate-head">
         <span class="status">Valide</span>
-        <span class="date">12 May 2026</span>
+        <span class="date">{{ certificate.issued_at | date:'mediumDate' }}</span>
       </div>
-      <h3>Angular avec style</h3>
+      <h3>{{ certificate.title }}</h3>
       <p>Certificat d'achevement</p>
       <div class="actions">
-        <button class="primary" routerLink="/certificats/angular-style">Ouvrir</button>
-        <button class="ghost">Telecharger PDF</button>
+        <button class="primary" [routerLink]="['/certificats', certificate.slug]">Ouvrir</button>
       </div>
     </article>
-    <article class="certificate-card" style="--delay: 0.08s">
+
+    <article class="certificate-card" *ngFor="let course of inProgress; let index = index" [style.--delay.s]="index * 0.08">
       <div class="certificate-head">
         <span class="status pending">En cours</span>
-        <span class="date">Progression 68%</span>
+        <span class="date">Progression {{ course.progress }}%</span>
       </div>
-      <h3>Palette douce et design</h3>
-      <p>Encore 4 chapitres a terminer</p>
+      <h3>{{ course.title }}</h3>
+      <p>Continue le cours pour debloquer le certificat.</p>
       <div class="actions">
-        <button class="secondary" routerLink="/cours/ux-doux/progression">Voir progression</button>
-      </div>
-    </article>
-    <article class="certificate-card" style="--delay: 0.16s">
-      <div class="certificate-head">
-        <span class="status">Valide</span>
-        <span class="date">05 May 2026</span>
-      </div>
-      <h3>Marketing doux</h3>
-      <p>Certificat d'achevement</p>
-      <div class="actions">
-        <button class="primary" routerLink="/certificats/marketing-doux">Ouvrir</button>
-        <button class="ghost">Telecharger PDF</button>
+        <button class="secondary" [routerLink]="['/cours', course.slug, 'progression']">Voir progression</button>
       </div>
     </article>
   </section>

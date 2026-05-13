@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { AuthLocalService } from '../../../shared/auth-local.service';
 
@@ -9,9 +9,17 @@ import { AuthLocalService } from '../../../shared/auth-local.service';
   templateUrl: './student-layout.component.html',
   styleUrl: './student-layout.component.scss'
 })
-export class StudentLayoutComponent {
+export class StudentLayoutComponent implements OnInit {
   private auth = inject(AuthLocalService);
   private router = inject(Router);
+  user: any;
+
+  ngOnInit(): void {
+    this.auth.getCurrentUser().subscribe({
+      next: (user) => this.user = user,
+      error: () => this.logout()
+    });
+  }
 
   logout(): void {
     this.auth.logout();

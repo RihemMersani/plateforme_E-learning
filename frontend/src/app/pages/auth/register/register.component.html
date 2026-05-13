@@ -6,33 +6,36 @@
       <p>Cree ton compte pour commencer ton parcours.</p>
     </div>
 
-    <form class="auth-form" (submit)="onRegister($event, roleSelect.value)">
+    <form class="auth-form" [formGroup]="registerForm" (ngSubmit)="onRegister()">
       <div class="split">
         <label>
-          Nom
-          <input type="text" placeholder="Nom" />
+          Prénom
+          <input type="text" placeholder="Prénom" formControlName="firstName" />
         </label>
         <label>
-          Prenom
-          <input type="text" placeholder="Prenom" />
+          Nom
+          <input type="text" placeholder="Nom" formControlName="lastName" />
         </label>
       </div>
       <label>
         Email
-        <input type="email" placeholder="toi@email.com" />
+        <input type="email" placeholder="toi@email.com" formControlName="email" />
       </label>
       <label>
         Mot de passe
-        <input type="password" placeholder="********" />
+        <input type="password" placeholder="********" formControlName="password" />
       </label>
       <label>
-        Role
-        <select #roleSelect>
-          <option>Etudiant</option>
-          <option>Admin</option>
-        </select>
+        Confirmer le mot de passe
+        <input type="password" placeholder="********" formControlName="passwordConfirm" />
       </label>
-      <button class="primary" type="submit">Creer un compte</button>
+      <div *ngIf="registerForm.errors?.['passwordsMismatch'] && (registerForm.get('passwordConfirm')?.touched || registerForm.get('passwordConfirm')?.dirty)" class="error-message">
+        Les mots de passe ne correspondent pas.
+      </div>
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+      <button class="primary" type="submit" [disabled]="registerForm.invalid">Creer un compte</button>
     </form>
 
     <div class="auth-footer">

@@ -1,19 +1,13 @@
 <section class="panel">
   <h2>Mes certificats</h2>
   <div class="certificate-list">
-    <div class="certificate-item">
+    <div class="certificate-item" *ngFor="let certificate of certificates">
       <div>
-        <h3>Angular avec style</h3>
-        <p>Valide le 12 May 2026</p>
+        <h3>{{ certificate.title }}</h3>
+        <p>Valide le {{ certificate.issued_at | date:'mediumDate' }}</p>
       </div>
-      <button class="secondary" routerLink="/certificats/angular-style">Ouvrir</button>
-    </div>
-    <div class="certificate-item">
-      <div>
-        <h3>Marketing doux</h3>
-        <p>Valide le 05 May 2026</p>
-      </div>
-      <button class="secondary" routerLink="/certificats/marketing-doux">Ouvrir</button>
+      <button class="secondary" [routerLink]="['/certificats', certificate.slug]">Ouvrir</button>
     </div>
   </div>
+  <p *ngIf="certificates.length === 0">Aucun certificat pour le moment.</p>
 </section>

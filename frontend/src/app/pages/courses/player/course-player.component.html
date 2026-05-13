@@ -1,36 +1,36 @@
-<div class="page">
+<div class="page" *ngIf="course && activeLesson">
   <header class="player-header">
-    <a class="back" routerLink="/cours/angular-style">Retour au detail</a>
+    <a class="back" [routerLink]="['/cours', course.slug]">Retour au detail</a>
     <div>
-      <h1>Angular avec style</h1>
-      <p>Chapitre 3: Couleurs et typographies</p>
+      <h1>{{ course.title }}</h1>
+      <p>{{ activeLesson.title }}</p>
     </div>
-    <button class="secondary" routerLink="/cours/angular-style/progression">Voir progression</button>
+    <button class="secondary" [routerLink]="['/cours', course.slug, 'progression']">Voir progression</button>
   </header>
 
   <section class="player-grid">
     <div class="video">
       <div class="video-surface">
-        <span>Video principale</span>
+        <span>{{ activeLesson.video_url ? 'Video du cours' : 'Lecon texte' }}</span>
       </div>
       <div class="video-info">
-        <h2>Notes importantes</h2>
-        <p>Retiens les palettes pastel et l'importance de l'espacement.</p>
+        <h2>{{ activeLesson.title }}</h2>
+        <p>{{ activeLesson.content }}</p>
         <div class="resource-row">
-          <button class="ghost">Telecharger PDF</button>
-          <button class="ghost" routerLink="/quiz/angular-style-1">Ouvrir quiz</button>
+          <button class="ghost" *ngIf="activeLesson.document_url">Telecharger PDF</button>
+          <button class="ghost" routerLink="/quiz">Ouvrir quiz</button>
         </div>
+        <p *ngIf="message">{{ message }}</p>
       </div>
     </div>
     <aside class="chapters">
-      <h3>Chapitres</h3>
+      <h3>Lecons</h3>
       <ul>
-        <li class="active">3. Couleurs et typographies</li>
-        <li>4. Layout respirant</li>
-        <li>5. Micro-interactions</li>
-        <li>6. Design system</li>
+        <li *ngFor="let lesson of lessons" [class.active]="lesson.id === activeLesson.id" (click)="selectLesson(lesson)">
+          {{ lesson.title }} - {{ lesson.duration_minutes }} min
+        </li>
       </ul>
-      <button class="primary">Marquer comme termine</button>
+      <button class="primary" (click)="completeLesson()">Marquer comme termine</button>
     </aside>
   </section>
 </div>

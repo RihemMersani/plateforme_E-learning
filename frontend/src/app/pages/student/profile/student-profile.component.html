@@ -1,26 +1,27 @@
-<section class="panel">
+<section class="panel" *ngIf="profile">
   <h2>Mon profil</h2>
   <div class="profile-card">
-    <div class="avatar">S</div>
+    <div class="avatar">{{ profile.full_name?.charAt(0) || 'E' }}</div>
     <div>
-      <h3>Sarah Ahmed</h3>
-      <p>sarah&#64;email.com</p>
+      <h3>{{ profile.full_name }}</h3>
+      <p>{{ profile.email }}</p>
     </div>
   </div>
 
-  <form class="profile-form">
+  <form class="profile-form" (ngSubmit)="save()">
     <label>
       Nom complet
-      <input type="text" value="Sarah Ahmed" />
+      <input type="text" [(ngModel)]="profile.full_name" name="fullName" />
     </label>
     <label>
       Email
-      <input type="email" value="sarah&#64;email.com" />
+      <input type="email" [(ngModel)]="profile.email" name="email" />
     </label>
     <label>
-      Mot de passe
-      <input type="password" value="********" />
+      Nouveau mot de passe
+      <input type="password" [(ngModel)]="password" name="password" placeholder="Laisser vide pour ne pas changer" />
     </label>
+    <p *ngIf="message">{{ message }}</p>
     <button class="primary" type="submit">Mettre a jour</button>
   </form>
 </section>

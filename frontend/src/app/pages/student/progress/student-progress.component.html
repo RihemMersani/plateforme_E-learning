@@ -1,26 +1,13 @@
 <section class="panel">
   <h2>Mes progres</h2>
   <div class="progress-list">
-    <div class="progress-item">
+    <div class="progress-item" *ngFor="let course of courses">
       <div>
-        <h3>Angular avec style</h3>
-        <p>Progression 64%</p>
+        <h3>{{ course.title }}</h3>
+        <p>Progression {{ course.progress }}%</p>
       </div>
-      <div class="bar"><span style="width: 64%"></span></div>
-    </div>
-    <div class="progress-item">
-      <div>
-        <h3>JavaScript pour debuter</h3>
-        <p>Progression 42%</p>
-      </div>
-      <div class="bar"><span style="width: 42%"></span></div>
-    </div>
-    <div class="progress-item">
-      <div>
-        <h3>CSS mignon et fluide</h3>
-        <p>Progression 30%</p>
-      </div>
-      <div class="bar"><span style="width: 30%"></span></div>
+      <div class="bar"><span [style.width.%]="course.progress"></span></div>
     </div>
   </div>
+  <p *ngIf="courses.length === 0">Aucune progression pour le moment.</p>
 </section>

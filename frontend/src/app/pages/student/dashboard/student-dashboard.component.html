@@ -1,63 +1,43 @@
-<section class="summary">
-  <div class="card">
-    <p class="label">Progression globale</p>
-    <div class="progress">
-      <span style="width: 64%"></span>
-    </div>
-    <p class="value">64%</p>
-  </div>
-  <div class="card">
-    <p class="label">Cours en cours</p>
-    <p class="value">3</p>
-    <p class="muted">Continue pour garder le rythme.</p>
-  </div>
-  <div class="card">
-    <p class="label">Quiz valides</p>
-    <p class="value">6</p>
-    <p class="muted">Encore 2 quiz pour le certificat.</p>
-  </div>
-</section>
-
-<section class="grid">
-  <article class="panel">
-    <h2>Continuer un cours</h2>
-    <div class="course-item">
-      <div>
-        <h3>Angular avec style</h3>
-        <p>Chapitre 6 • Layout respirant</p>
+<ng-container *ngIf="dashboard">
+  <section class="summary">
+    <div class="card">
+      <p class="label">Progression globale</p>
+      <div class="progress">
+        <span [style.width.%]="dashboard.summary.global_progress"></span>
       </div>
-      <button class="secondary" routerLink="/cours/angular-style/lecture">Reprendre</button>
+      <p class="value">{{ dashboard.summary.global_progress }}%</p>
     </div>
-    <div class="course-item">
-      <div>
-        <h3>JavaScript pour debuter</h3>
-        <p>Chapitre 3 • Fonctions</p>
+    <div class="card">
+      <p class="label">Cours inscrits</p>
+      <p class="value">{{ dashboard.summary.active_courses }}</p>
+      <p class="muted">Continue pour garder le rythme.</p>
+    </div>
+    <div class="card">
+      <p class="label">Quiz valides</p>
+      <p class="value">{{ dashboard.summary.quizzes_passed || 0 }}</p>
+      <p class="muted">{{ dashboard.summary.certificates_count }} certificat(s).</p>
+    </div>
+  </section>
+
+  <section class="grid">
+    <article class="panel">
+      <h2>Continuer un cours</h2>
+      <div class="course-item" *ngFor="let course of dashboard.courses">
+        <div>
+          <h3>{{ course.title }}</h3>
+          <p>Progression {{ course.progress }}%</p>
+        </div>
+        <button class="secondary" [routerLink]="['/cours', course.slug, 'lecture']">Reprendre</button>
       </div>
-      <button class="secondary" routerLink="/cours/javascript/lecture">Reprendre</button>
-    </div>
-  </article>
+      <p *ngIf="dashboard.courses.length === 0">Aucun cours inscrit pour le moment.</p>
+    </article>
 
-  <article class="panel">
-    <h2>Prochains quiz</h2>
-    <div class="quiz-item">
-      <span>Quiz • CSS layout</span>
-      <button class="ghost" routerLink="/quiz/css-6">Commencer</button>
-    </div>
-    <div class="quiz-item">
-      <span>Quiz • Node.js API</span>
-      <button class="ghost" routerLink="/quiz/nodejs-9">Commencer</button>
-    </div>
-  </article>
-
-  <article class="panel">
-    <h2>Derniers certificats</h2>
-    <div class="certificate-item">
-      <span>Angular avec style</span>
-      <button class="ghost" routerLink="/certificats/angular-style">Ouvrir</button>
-    </div>
-    <div class="certificate-item">
-      <span>Marketing doux</span>
-      <button class="ghost" routerLink="/certificats/marketing-doux">Ouvrir</button>
-    </div>
-  </article>
-</section>
+    <article class="panel">
+      <h2>Prochains quiz</h2>
+      <div class="quiz-item" *ngFor="let quiz of dashboard.quizzes">
+        <span>{{ quiz.title }}</span>
+        <button class="ghost" [routerLink]="['/quiz', quiz.slug]">Commencer</button>
+      </div>
+    </article>
+  </section>
+</ng-container>

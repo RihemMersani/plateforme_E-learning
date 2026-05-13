@@ -1,54 +1,39 @@
-<div class="page">
+<div class="page" *ngIf="course">
   <header class="progress-header">
     <div>
       <p class="eyebrow">Progression</p>
-      <h1>Angular avec style</h1>
-      <p class="subtitle">Tu as deja termine 9 chapitres sur 18.</p>
+      <h1>{{ course.title }}</h1>
+      <p class="subtitle">Ta progression est calculee depuis les lecons terminees.</p>
     </div>
-    <button class="secondary" routerLink="/cours/angular-style/lecture">Reprendre</button>
+    <button class="secondary" [routerLink]="['/cours', course.slug, 'lecture']">Reprendre</button>
   </header>
 
   <section class="summary">
     <div class="summary-card">
       <span class="label">Progression globale</span>
       <div class="progress">
-        <span style="width: 50%"></span>
+        <span [style.width.%]="progress"></span>
       </div>
-      <span class="value">50%</span>
+      <span class="value">{{ progress }}%</span>
     </div>
     <div class="summary-card">
-      <span class="label">Quiz valides</span>
-      <span class="value">3/4</span>
-      <p>Encore un quiz avant le certificat.</p>
+      <span class="label">Lecons</span>
+      <span class="value">{{ course.lessons_count }}</span>
+      <p>{{ course.duration_minutes }} minutes de contenu.</p>
     </div>
     <div class="summary-card">
-      <span class="label">Temps passe</span>
-      <span class="value">3h 20min</span>
-      <p>Continue doucement et regulierement.</p>
+      <span class="label">Certificat</span>
+      <span class="value">{{ progress >= 100 ? 'Disponible' : 'En cours' }}</span>
+      <p>Disponible quand la progression atteint 100%.</p>
     </div>
   </section>
 
   <section class="list">
-    <div class="card">
-      <h2>Chapitres termines</h2>
+    <div class="card" *ngFor="let chapter of course.chapters">
+      <h2>{{ chapter.title }}</h2>
       <ul>
-        <li>Intro et setup</li>
-        <li>Structure des composants</li>
-        <li>Couleurs et typographies</li>
+        <li *ngFor="let lesson of chapter.lessons">{{ lesson.title }}</li>
       </ul>
-    </div>
-    <div class="card">
-      <h2>A faire ensuite</h2>
-      <ul>
-        <li>Micro-interactions</li>
-        <li>Design system</li>
-        <li>Bonus layout</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h2>Certificat</h2>
-      <p>Disponible quand la progression atteint 100% et tous les quiz valides.</p>
-      <button class="primary" disabled>Certificat non disponible</button>
     </div>
   </section>
 </div>

@@ -1,32 +1,27 @@
-<div class="page">
+<div class="page" *ngIf="quiz && currentQuestion">
   <header class="quiz-header">
     <a class="back" routerLink="/quiz">Retour aux quiz</a>
     <div>
-      <h1>Quiz • Fondations UI</h1>
-      <p>Question 3 sur 10</p>
+      <h1>{{ quiz.title }}</h1>
+      <p>Question {{ currentIndex + 1 }} sur {{ quiz.questions.length }}</p>
     </div>
-    <div class="timer">08:12</div>
+    <div class="timer">{{ quiz.passing_score }}% requis</div>
   </header>
 
   <section class="question-card">
-    <h2>Quel est le meilleur contraste pour une interface douce ?</h2>
+    <h2>{{ currentQuestion.question_text }}</h2>
     <div class="answers">
-      <label class="answer">
-        <input type="radio" name="q1" />
-        <span>Couleurs pastel avec texte fonce</span>
-      </label>
-      <label class="answer">
-        <input type="radio" name="q1" />
-        <span>Texte blanc sur fond jaune clair</span>
-      </label>
-      <label class="answer">
-        <input type="radio" name="q1" />
-        <span>Texte gris clair sur fond blanc</span>
+      <label class="answer" *ngFor="let answer of currentQuestion.answers">
+        <input type="radio" [name]="'q' + currentQuestion.id" [value]="answer.id" [(ngModel)]="answers[currentQuestion.id]" />
+        <span>{{ answer.answer_text }}</span>
       </label>
     </div>
+    <p *ngIf="errorMessage">{{ errorMessage }}</p>
     <div class="quiz-actions">
-      <button class="ghost">Question precedente</button>
-      <button class="primary" routerLink="/quiz/angular-style-1/resultat">Soumettre</button>
+      <button class="ghost" (click)="previous()" [disabled]="currentIndex === 0">Question precedente</button>
+      <button class="primary" (click)="next()">
+        {{ currentIndex === quiz.questions.length - 1 ? 'Soumettre' : 'Question suivante' }}
+      </button>
     </div>
   </section>
 </div>

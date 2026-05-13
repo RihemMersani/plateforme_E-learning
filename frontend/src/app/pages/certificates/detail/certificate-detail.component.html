@@ -1,17 +1,17 @@
 <div class="page">
   <a class="back" routerLink="/certificats">Retour aux certificats</a>
 
-  <section class="certificate">
+  <section class="certificate" *ngIf="certificate">
     <div class="badge">Certificat officiel</div>
     <h1>Certificat d'achevement</h1>
-    <p class="name">Delivre a <strong>Etudiant Exemple</strong></p>
-    <p class="course">Pour le cours <strong>Angular avec style</strong></p>
+    <p class="name">Delivre a <strong>{{ certificate.full_name }}</strong></p>
+    <p class="course">Pour le cours <strong>{{ certificate.title }}</strong></p>
     <div class="divider"></div>
-    <p class="date">12 May 2026</p>
+    <p class="date">{{ certificate.issued_at | date:'mediumDate' }}</p>
   </section>
 
-  <div class="actions">
-    <button class="primary">Telecharger PDF</button>
-    <button class="secondary">Partager</button>
-  </div>
+  <section class="certificate" *ngIf="message">
+    <h1>{{ message }}</h1>
+    <p>Termine le cours pour debloquer ce certificat.</p>
+  </section>
 </div>
