@@ -28,7 +28,7 @@ const courses = [
     ],
     quiz: {
       title: 'Quiz Angular fondations',
-      passingScore: 70,
+      passingScore: 50,
       questions: [
         ['A quoi sert un service Angular ?', ['A partager de la logique et des donnees', 'A remplacer le routeur', 'A compiler le CSS'], 0],
         ['Quel module permet de construire un formulaire reactif ?', ['RouterLink', 'ReactiveFormsModule', 'CommonModule'], 1],

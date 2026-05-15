@@ -1,36 +1,84 @@
 <div class="page" *ngIf="course && activeLesson">
   <header class="player-header">
     <a class="back" [routerLink]="['/cours', course.slug]">Retour au detail</a>
+
     <div>
       <h1>{{ course.title }}</h1>
       <p>{{ activeLesson.title }}</p>
     </div>
-    <button class="secondary" [routerLink]="['/cours', course.slug, 'progression']">Voir progression</button>
+
+    <button class="secondary" [routerLink]="['/cours', course.slug, 'progression']">
+      Voir progression
+    </button>
   </header>
 
   <section class="player-grid">
     <div class="video">
       <div class="video-surface">
-        <span>{{ activeLesson.video_url ? 'Video du cours' : 'Lecon texte' }}</span>
+        <video
+          *ngIf="activeLesson.video_url"
+          controls
+          controlsList="nodownload"
+          [src]="activeLesson.video_url">
+        </video>
+
+        <span *ngIf="!activeLesson.video_url">Lecon texte</span>
       </div>
+
       <div class="video-info">
+        <div class="lesson-meta">
+          <span>Video {{ activeIndex + 1 }} sur {{ lessons.length }}</span>
+          <span>{{ progressPercent }}% termine</span>
+        </div>
+
         <h2>{{ activeLesson.title }}</h2>
         <p>{{ activeLesson.content }}</p>
+
         <div class="resource-row">
-          <button class="ghost" *ngIf="activeLesson.document_url">Telecharger PDF</button>
-          <button class="ghost" routerLink="/quiz">Ouvrir quiz</button>
+          <button class="ghost" *ngIf="activeLesson.document_url">
+            Telecharger PDF
+          </button>
+
+          <button class="ghost" (click)="openQuiz()" [disabled]="!courseCompleted">
+            {{ courseCompleted ? 'Passer le quiz' : 'Quiz bloque' }}
+          </button>
         </div>
+
         <p *ngIf="message">{{ message }}</p>
       </div>
     </div>
+
     <aside class="chapters">
       <h3>Lecons</h3>
+
+      <div class="progress-line">
+        <span [style.width.%]="progressPercent"></span>
+      </div>
+
       <ul>
-        <li *ngFor="let lesson of lessons" [class.active]="lesson.id === activeLesson.id" (click)="selectLesson(lesson)">
-          {{ lesson.title }} - {{ lesson.duration_minutes }} min
+        <li
+          *ngFor="let lesson of lessons; let index = index"
+          [class.active]="lesson.id === activeLesson.id"
+          [class.done]="isCompleted(lesson)"
+          [class.locked]="isLocked(index)"
+          (click)="selectLesson(lesson, index)">
+          <span class="status">
+            {{ isCompleted(lesson) ? '✓' : index + 1 }}
+          </span>
+
+          <span>
+            {{ lesson.title }} - {{ lesson.duration_minutes }} min
+          </span>
         </li>
       </ul>
-      <button class="primary" (click)="completeLesson()">Marquer comme termine</button>
+
+      <button class="primary" (click)="completeLesson()">
+        {{ hasNextLesson ? 'Terminer et passer a la video suivante' : 'Terminer le cours et passer au quiz' }}
+      </button>
+
+      <button class="secondary full" (click)="openQuiz()" [disabled]="!courseCompleted">
+        Quiz final - reussite a 50%
+      </button>
     </aside>
   </section>
 </div>

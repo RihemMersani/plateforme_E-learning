@@ -8,7 +8,7 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   try {
     const [quizzes] = await pool.execute(
-      `SELECT q.*, c.title AS course_title, COUNT(ques.id) AS questions_count
+      `SELECT q.*, LEAST(q.passing_score, 50) AS passing_score, c.title AS course_title, COUNT(ques.id) AS questions_count
        FROM quizzes q
        JOIN courses c ON c.id = q.course_id
        LEFT JOIN questions ques ON ques.quiz_id = q.id
@@ -29,7 +29,7 @@ router.get('/:slug', async (req, res) => {
 
   try {
     const [quizzes] = await pool.execute(
-      `SELECT q.*, c.title AS course_title
+      `SELECT q.*, LEAST(q.passing_score, 50) AS passing_score, c.title AS course_title
        FROM quizzes q
        JOIN courses c ON c.id = q.course_id
        WHERE q.id = ?
@@ -84,7 +84,10 @@ router.post('/:slug/submit', auth, async (req, res) => {
       [quizId]
     );
     const [quizzes] = await pool.execute(
-      'SELECT passing_score FROM quizzes WHERE id = ? LIMIT 1',
+      `SELECT q.passing_score, q.course_id
+       FROM quizzes q
+       WHERE q.id = ?
+       LIMIT 1`,
       [quizId]
     );
 
@@ -92,14 +95,47 @@ router.post('/:slug/submit', auth, async (req, res) => {
     const total = questions.length;
     const correct = questions.filter((question) => Number(submittedAnswers[question.id]) === correctByQuestion.get(question.id)).length;
     const score = total ? Math.round((correct / total) * 100) : 0;
-    const passed = score >= Number(quizzes[0]?.passing_score || 50);
+    const passingScore = 50;
+    const passed = score >= passingScore;
 
     await pool.execute(
       'INSERT INTO quiz_results (student_id, quiz_id, score, passed) VALUES (?, ?, ?, ?)',
       [req.user.id, quizId, score, passed ? 1 : 0]
     );
 
-    res.json({ score, correct, total, passed });
+    let certificateIssued = false;
+
+    if (passed && quizzes[0]?.course_id) {
+      const [progress] = await pool.execute(
+        `SELECT COUNT(l.id) AS total_lessons,
+          SUM(CASE WHEN lp.is_completed = 1 THEN 1 ELSE 0 END) AS completed_lessons
+         FROM lessons l
+         JOIN chapters ch ON ch.id = l.chapter_id
+         LEFT JOIN lesson_progress lp ON lp.lesson_id = l.id AND lp.student_id = ?
+         WHERE ch.course_id = ?`,
+        [req.user.id, quizzes[0].course_id]
+      );
+      const totalLessons = Number(progress[0].total_lessons || 0);
+      const completedLessons = Number(progress[0].completed_lessons || 0);
+
+      if (totalLessons > 0 && completedLessons >= totalLessons) {
+        const [certificates] = await pool.execute(
+          'SELECT id FROM certificates WHERE student_id = ? AND course_id = ? LIMIT 1',
+          [req.user.id, quizzes[0].course_id]
+        );
+
+        if (certificates.length === 0) {
+          await pool.execute(
+            'INSERT INTO certificates (student_id, course_id) VALUES (?, ?)',
+            [req.user.id, quizzes[0].course_id]
+          );
+        }
+
+        certificateIssued = true;
+      }
+    }
+
+    res.json({ score, correct, total, passed, certificateIssued });
   } catch (err) {
     console.error('Quiz submit error:', err);
     res.status(500).json({ msg: 'Server error while submitting quiz' });
@@ -112,7 +148,7 @@ router.get('/:slug/result', auth, async (req, res) => {
 
   try {
     const [results] = await pool.execute(
-      `SELECT qr.*, q.title, q.passing_score, c.title AS course_title
+      `SELECT qr.*, q.title, LEAST(q.passing_score, 50) AS passing_score, c.title AS course_title
        FROM quiz_results qr
        JOIN quizzes q ON q.id = qr.quiz_id
        JOIN courses c ON c.id = q.course_id

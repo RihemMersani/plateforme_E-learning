@@ -50,13 +50,22 @@
 }
 
 .video-surface {
-  height: 320px;
+  aspect-ratio: 16 / 9;
   border-radius: var(--radius-l);
   background: linear-gradient(120deg, var(--sky), var(--mint));
   display: grid;
   place-items: center;
   color: var(--ink);
   font-weight: 600;
+  overflow: hidden;
+}
+
+.video-surface video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: #0f1720;
+  object-fit: contain;
 }
 
 .video-info {
@@ -64,6 +73,15 @@
   padding: 18px;
   border-radius: var(--radius-l);
   box-shadow: 0 12px 24px rgba(20, 30, 40, 0.08);
+}
+
+.lesson-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--muted);
+  font-weight: 700;
+  margin-bottom: 8px;
 }
 
 .resource-row {
@@ -84,17 +102,61 @@
 
 .chapters ul {
   margin: 0;
-  padding-left: 18px;
+  padding: 0;
   color: var(--muted);
+  list-style: none;
 }
 
 .chapters li {
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 10px;
+  align-items: center;
+  cursor: pointer;
 }
 
 .chapters li.active {
   color: var(--ink);
   font-weight: 700;
+}
+
+.chapters li.done {
+  color: #1c7c54;
+}
+
+.chapters li.locked {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.status {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(177, 217, 255, 0.5);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.done .status {
+  background: rgba(177, 235, 216, 0.9);
+}
+
+.progress-line {
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(62, 72, 80, 0.12);
+  overflow: hidden;
+}
+
+.progress-line span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(120deg, var(--mint), var(--sky));
 }
 
 .primary,
@@ -117,6 +179,17 @@
   background: #ffffff;
   border: 1px solid rgba(62, 72, 80, 0.15);
   color: var(--ink);
+}
+
+.secondary.full {
+  width: 100%;
+}
+
+.primary:disabled,
+.secondary:disabled,
+.ghost:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
 }
 
 .ghost {
